@@ -3,8 +3,7 @@ import { SearchIcon, SelectorIcon } from '@heroicons/react/solid';
 import { Fragment, useState } from 'react';
 import useRequest from '../hooks/useRequest';
 import ClickAwayListener from 'react-click-away-listener';
-export const url = 'https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2';
-
+import { baseUrl } from '../helpers/helpers';
 const Search = ({ selectLocation }) => {
     const [selected, setSelected] = useState('');
     const [query, setQuery] = useState('');
@@ -13,12 +12,9 @@ const Search = ({ selectLocation }) => {
         useRequest(`https://docs.openaq.org/v2/cities?limit=100&page=1&offset=0&sort=asc&country_id=GB&order_by=city
     `);
     const { data, isLoading, error } = useRequest(
-        `${url}/cities?country=GB${query.length ? `&city=${query}` : ''}`
+        `${baseUrl}/cities?country=GB${query.length ? `&city=${query}` : ''}`
     );
-    const urlTest = `${url}/cities?country=GB${
-        query.length ? `&city=${query}` : ''
-    }`;
-    console.log(urlTest);
+
     return (
         <ClickAwayListener onClickAway={() => setShowResults(false)}>
             <div className='relative'>
@@ -93,8 +89,6 @@ const Search = ({ selectLocation }) => {
                                         Nothing found.
                                     </p>
                                 )}
-
-                                {/** No loading state specified */}
                             </div>
                         </div>
                     )}

@@ -7,7 +7,6 @@ module.exports = {
         fontFamily: {
             sans: ['Archivo', ...defaultTheme.fontFamily.sans]
         },
-        // Obtained via Mac app 'Sip' color picker
         colors: {
             white: {
                 50: '#ffffff',

@@ -10,9 +10,7 @@ TimeAgo.addDefaultLocale(en);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <React.Fragment className='antialiased bg-gradient-to-r from-mid to-right text-white-50'>
-            <App className='font-sans antialiased bg-gradient-to-r from-purple to-blue text-white-50' />
-        </React.Fragment>
+        <App className='font-sans antialiased bg-gradient-to-r from-purple to-blue text-white-50' />
     </React.StrictMode>
 );
 

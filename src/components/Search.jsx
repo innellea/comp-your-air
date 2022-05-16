@@ -8,14 +8,14 @@ const Search = ({ selectLocation }) => {
     const [input, setInput] = useState('');
     const [results, setResults] = useState(false);
     const cityArray =
-        useRequest(`https://docs.openaq.org/v2/locations?limit=100&page=1&offset=0&sort=asc&country_id=GB&order_by=city
+        useRequest(`https://docs.openaq.org/v2/locations?limit=200&page=1&offset=0&sort=asc&country_id=GB&order_by=city
     `);
     const { data, isLoading, error } = useRequest(
         `${baseUrl}/locations?country=GB${input.length ? `&city=${input}` : ''}`
     );
 
     return (
-        <ClickAwayListener onClickAway={() => setResults(false)}>
+        <div className='mx-auto mt-12 lg:w-5/12'>
             <div className='relative'>
                 <div className='relative z-20'>
                     <input
@@ -36,54 +36,51 @@ const Search = ({ selectLocation }) => {
                         aria-hidden='true'
                     />
                 </div>
-                <div>
-                    {results && (
-                        <div className='relative z-10 pt-8 pb-4 -mt-4 overflow-hidden rounded-xl bg-white-50'>
-                            <div className='max-h-52 space-y-0.5 overflow-y-auto text-black-100'>
-                                {data.results
-                                    ? cityArray.data.results
-                                          .filter(function (location) {
-                                              if (
-                                                  location.city
-                                                      .toLowerCase()
-                                                      .includes(
-                                                          input.toLowerCase()
-                                                      )
-                                              ) {
-                                                  return location.city
-                                                      .toLowerCase()
-                                                      .includes(
-                                                          input.toLowerCase()
-                                                      );
-                                              } else return '';
-                                          })
-                                          .map((location) => (
-                                              <button
-                                                  key={location.id}
-                                                  className='block w-full px-4 py-2 text-left truncate outbuttonne-none hover:bg-gray-50 focus:bg-gray-50'
-                                                  aria-label={location.city}
-                                                  onClick={() => {
-                                                      selectLocation(location);
-                                                      setResults(false);
-                                                      setSelected('');
-                                                  }}
-                                                  onMouseEnter={() =>
-                                                      setSelected(location.city)
-                                                  }
-                                                  onMouseLeave={() =>
-                                                      setSelected('')
-                                                  }
-                                              >
-                                                  {location.city}
-                                              </button>
-                                          ))
-                                    : ''}
-                            </div>
+
+                {results && (
+                    <div className='relative z-10 pt-8 pb-4 -mt-4 overflow-hidden rounded-xl bg-white-50'>
+                        <div className='max-h-52 space-y-0.5 overflow-y-auto text-black-100'>
+                            {data.results
+                                ? cityArray.data.results
+                                      .filter(function (location) {
+                                          if (
+                                              location.city
+                                                  .toLowerCase()
+                                                  .includes(input.toLowerCase())
+                                          ) {
+                                              return location.city
+                                                  .toLowerCase()
+                                                  .includes(
+                                                      input.toLowerCase()
+                                                  );
+                                          } else return '';
+                                      })
+                                      .map((location) => (
+                                          <button
+                                              key={location.id}
+                                              className='block w-full px-4 py-2 text-left truncate outbuttonne-none hover:bg-gray-50 focus:bg-gray-50'
+                                              aria-label={location.city}
+                                              onClick={() => {
+                                                  selectLocation(location);
+                                                  setResults(false);
+                                                  setSelected('');
+                                              }}
+                                              onMouseEnter={() =>
+                                                  setSelected(location.city)
+                                              }
+                                              onMouseLeave={() =>
+                                                  setSelected('')
+                                              }
+                                          >
+                                              {location.city}
+                                          </button>
+                                      ))
+                                : ''}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
-        </ClickAwayListener>
+        </div>
     );
 };
 export default Search;

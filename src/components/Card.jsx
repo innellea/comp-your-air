@@ -5,7 +5,6 @@ import { trimString } from '../helpers/helpers';
 const Card = ({ location, removeCallback }) => {
     const timeAgo = <ReactTimeAgo date={location.lastUpdated} />;
     return (
-        // <></>
         <div className='relative p-6 rounded-xl bg-white-50 text-black-100'>
             <button
                 onClick={() => removeCallback(location)}
@@ -13,13 +12,13 @@ const Card = ({ location, removeCallback }) => {
             >
                 X
             </button>
+
             <span className='block text-sm font-medium tracking-wide uppercase'>
                 Updated {timeAgo}
             </span>
             <h2 className='block mt-2 text-xl font-semibold text-purple xl:mt-1'>
                 {location.name}
             </h2>
-            {console.log(location)}
             <h3 className='mt-2'>in {location.city}</h3>
             <span className='block mt-2 font-semibold'>
                 Values:{' '}

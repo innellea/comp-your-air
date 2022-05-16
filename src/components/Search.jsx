@@ -1,22 +1,21 @@
-import { Combobox, Transition } from '@headlessui/react';
-import { SearchIcon, SelectorIcon } from '@heroicons/react/solid';
-import { Fragment, useState } from 'react';
+import { SearchIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
 import useRequest from '../hooks/useRequest';
 import ClickAwayListener from 'react-click-away-listener';
 import { baseUrl } from '../helpers/helpers';
 const Search = ({ selectLocation }) => {
     const [selected, setSelected] = useState('');
-    const [query, setQuery] = useState('');
-    const [showResults, setShowResults] = useState(false);
+    const [input, setInput] = useState('');
+    const [results, setResults] = useState(false);
     const cityArray =
         useRequest(`https://docs.openaq.org/v2/locations?limit=100&page=1&offset=0&sort=asc&country_id=GB&order_by=city
     `);
     const { data, isLoading, error } = useRequest(
-        `${baseUrl}/locations?country=GB${query.length ? `&city=${query}` : ''}`
+        `${baseUrl}/locations?country=GB${input.length ? `&city=${input}` : ''}`
     );
 
     return (
-        <ClickAwayListener onClickAway={() => setShowResults(false)}>
+        <ClickAwayListener onClickAway={() => setResults(false)}>
             <div className='relative'>
                 <div className='relative z-20'>
                     <input
@@ -25,22 +24,22 @@ const Search = ({ selectLocation }) => {
                         placeholder='Enter city name'
                         autoComplete='off'
                         aria-busy={isLoading}
-                        className='w-full px-4 py-3 pl-12 text-sm leading-5 border-2 border-gray-500 outline-none rounded-xl text-black-50'
+                        className='w-full px-4 py-3 pl-12 text-sm leading-5 border-2 border-gray-500 outline-none rounded-xl text-black-100'
                         onChange={(event) => {
-                            setQuery(event.target.value);
+                            setInput(event.target.value);
                             setSelected(event.target.value);
                         }}
-                        onFocus={() => setShowResults(true)}
+                        onFocus={() => setResults(true)}
                     />
                     <SearchIcon
-                        className='absolute top-0 h-full text-gray-500 left-3 w-7'
+                        className='absolute top-0 h-full text-black-100 left-3 w-7'
                         aria-hidden='true'
                     />
                 </div>
                 <div>
-                    {showResults && (
+                    {results && (
                         <div className='relative z-10 pt-8 pb-4 -mt-4 overflow-hidden rounded-xl bg-white-50'>
-                            <div className='max-h-52 space-y-0.5 overflow-y-auto text-black-50'>
+                            <div className='max-h-52 space-y-0.5 overflow-y-auto text-black-100'>
                                 {data.results
                                     ? cityArray.data.results
                                           .filter(function (location) {
@@ -48,17 +47,13 @@ const Search = ({ selectLocation }) => {
                                                   location.city
                                                       .toLowerCase()
                                                       .includes(
-                                                          query.toLowerCase()
+                                                          input.toLowerCase()
                                                       )
                                               ) {
-                                                  //   console.log(
-                                                  //       `filter:${location.city}`
-                                                  //   );
-
                                                   return location.city
                                                       .toLowerCase()
                                                       .includes(
-                                                          query.toLowerCase()
+                                                          input.toLowerCase()
                                                       );
                                               } else return '';
                                           })
@@ -69,7 +64,7 @@ const Search = ({ selectLocation }) => {
                                                   aria-label={location.city}
                                                   onClick={() => {
                                                       selectLocation(location);
-                                                      setShowResults(false);
+                                                      setResults(false);
                                                       setSelected('');
                                                   }}
                                                   onMouseEnter={() =>
@@ -83,12 +78,6 @@ const Search = ({ selectLocation }) => {
                                               </button>
                                           ))
                                     : ''}
-
-                                {!isLoading && !data?.results && (
-                                    <p className='relative px-4 py-2 cursor-default select-none'>
-                                        Nothing found.
-                                    </p>
-                                )}
                             </div>
                         </div>
                     )}

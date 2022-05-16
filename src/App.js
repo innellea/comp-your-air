@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Card from './components/Card';
 import Search from './components/Search';
 
@@ -18,7 +18,7 @@ function App() {
     );
 
     return (
-        <section className='container h-screen px-8 mx-auto mt-16 xl:mt-24'>
+        <section className='container h-screen px-8 mx-auto mt-16 text-white-50 xl:mt-24'>
             <h1 className='mx-auto text-3xl font-semibold text-center w-fit xl:text-5xl'>
                 Compare your Air
             </h1>

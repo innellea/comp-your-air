@@ -1,13 +1,8 @@
-import useRequest from '../hooks/useRequest';
-import { baseUrl } from '../helpers/helpers';
 import React from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import { trimString } from '../helpers/helpers';
 
 const Card = ({ location, removeCallback }) => {
-    // const { data } = useRequest(
-    //     `https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/locations?country_id=GB`
-    // );
     const timeAgo = <ReactTimeAgo date={location.lastUpdated} />;
     return (
         // <></>
@@ -15,7 +10,9 @@ const Card = ({ location, removeCallback }) => {
             <button
                 onClick={() => removeCallback(location)}
                 className='absolute top-3 right-3'
-            ></button>
+            >
+                X
+            </button>
             <span className='block text-sm font-medium tracking-wide uppercase'>
                 Updated {timeAgo}
             </span>

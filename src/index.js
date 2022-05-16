@@ -5,13 +5,13 @@ import reportWebVitals from './reportWebVitals';
 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
-import './styles/globals.css';
+import './styles/output.css';
 TimeAgo.addDefaultLocale(en);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <React.Fragment>
-            <App />
+        <React.Fragment className='antialiased bg-gradient-to-r from-mid to-right text-white-50'>
+            <App className='font-sans antialiased bg-gradient-to-r from-purple to-blue text-white-50' />
         </React.Fragment>
     </React.StrictMode>
 );

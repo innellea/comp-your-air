@@ -9,10 +9,10 @@ const Search = ({ selectLocation }) => {
     const [query, setQuery] = useState('');
     const [showResults, setShowResults] = useState(false);
     const cityArray =
-        useRequest(`https://docs.openaq.org/v2/cities?limit=100&page=1&offset=0&sort=asc&country_id=GB&order_by=city
+        useRequest(`https://docs.openaq.org/v2/locations?limit=100&page=1&offset=0&sort=asc&country_id=GB&order_by=city
     `);
     const { data, isLoading, error } = useRequest(
-        `${baseUrl}/cities?country=GB${query.length ? `&city=${query}` : ''}`
+        `${baseUrl}/locations?country=GB${query.length ? `&city=${query}` : ''}`
     );
 
     return (
@@ -51,9 +51,9 @@ const Search = ({ selectLocation }) => {
                                                           query.toLowerCase()
                                                       )
                                               ) {
-                                                  console.log(
-                                                      `filter:${location.city}`
-                                                  );
+                                                  //   console.log(
+                                                  //       `filter:${location.city}`
+                                                  //   );
 
                                                   return location.city
                                                       .toLowerCase()
@@ -64,7 +64,7 @@ const Search = ({ selectLocation }) => {
                                           })
                                           .map((location) => (
                                               <button
-                                                  key={location.city}
+                                                  key={location.id}
                                                   className='block w-full px-4 py-2 text-left truncate outbuttonne-none hover:bg-gray-50 focus:bg-gray-50'
                                                   aria-label={location.city}
                                                   onClick={() => {

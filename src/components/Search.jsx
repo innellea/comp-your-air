@@ -1,14 +1,13 @@
 import { SearchIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import useRequest from '../hooks/useRequest';
-import ClickAwayListener from 'react-click-away-listener';
 import { baseUrl } from '../helpers/helpers';
 const Search = ({ selectLocation }) => {
   const [selected, setSelected] = useState('');
   const [input, setInput] = useState('');
   const [results, setResults] = useState(false);
   const cityArray =
-    useRequest(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com//v2/locations?limit=200&page=1&offset=0&sort=asc&country_id=GB&order_by=city
+    useRequest(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/locations?limit=200&page=1&offset=0&sort=asc&country_id=GB&order_by=city
     `);
   const { data, isLoading, error } = useRequest(
     `${baseUrl}/locations?country=GB${input.length ? `&city=${input}` : ''}`
